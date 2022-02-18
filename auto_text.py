@@ -54,6 +54,7 @@ def get_large_audio_transcription(path):
             rate = f.getframerate()
             duration = frames / float(rate) 
 #print(duration)i
+            #convert to srt file format
             start = end
             end += duration #누적값
             start_time = str(datetime.timedelta(microseconds= start * 1000000))
