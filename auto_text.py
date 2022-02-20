@@ -48,12 +48,12 @@ def get_large_audio_transcription(path):
         chunk_filename = os.path.join(folder_name, f"chunk{i}.wav")
         audio_chunk.export(chunk_filename, format="wav")
         # recognize the chunk
-		#jiseo add code
+	#get length of chunk{i}.wav
         with contextlib.closing(wave.open(f"audio-chunks/chunk{i}.wav",'r')) as f:
             frames=f.getnframes()
             rate = f.getframerate()
             duration = frames / float(rate) 
-#print(duration)i
+
             #convert to srt file format
             start = end
             end += duration #누적값
@@ -79,6 +79,6 @@ def get_large_audio_transcription(path):
                 whole_text += text
     # return the text for all chunks detected
     return whole_text
-whole_text = get_large_audio_transcription(path)
-file.write(whole_text)
+get_large_audio_transcription(path)
+
 file.close()
