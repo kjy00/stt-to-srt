@@ -3,7 +3,7 @@ from pydub import AudioSegment
 song = AudioSegment.from_mp3("C:/Users/User/Desktop/2022_4학년_1학기/캡스톤2/test.wav")
 
 five_seconds = 5 * 1000
-one_min = five_seconds * 6
+one_min = five_seconds * 6 * 2
 
 first_5_seconds = song[:five_seconds]
 
