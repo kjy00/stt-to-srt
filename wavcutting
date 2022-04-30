@@ -1,0 +1,12 @@
+from pydub import AudioSegment
+
+song = AudioSegment.from_mp3("C:/Users/User/Desktop/2022_4학년_1학기/캡스톤2/test.wav")
+
+five_seconds = 5 * 1000
+one_min = five_seconds * 6
+
+first_5_seconds = song[:five_seconds]
+
+beginning = first_5_seconds + 6
+
+beginning.export("C:/Users/User/Desktop/2022_4학년_1학기/캡스톤2/result.wav", format='wav', parameters=["-q:a", "10", "-ac", "1"])
