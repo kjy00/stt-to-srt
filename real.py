@@ -1,3 +1,8 @@
+'''
+mp4towav + updateStorage + stt 합친 코드임
+코드 돌릴때마다 구글 클라우드 스토리지랑 audio-chunks를
+지워주는 코드 추가하기
+'''
 # importing libraries
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
