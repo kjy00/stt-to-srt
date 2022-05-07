@@ -5,10 +5,7 @@
 python 3.9.1
 # 사용방법
 
-1. mp4towav.py를 실행시킨다.
+1. speakerWavSTT.py를 실행시킨다.
 ```
-python mp4towav.py
+python speakerWavSTT.py
 ```
-2. auto_text.py를 실행시킨다.
-```
-python auto_text.py
