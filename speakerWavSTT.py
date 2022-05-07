@@ -25,9 +25,7 @@ sound = AudioSegment.from_wav("test.wav")
 sound = sound.set_channels(1)
 sound.export("test.wav", format="wav")
 
-#os.system('ffmpeg -i ./test.wav -filter_complex "channelsplit=channel_layout=5.1[FL][FR][FC][LFE][BL][BR]" -map "[FL]" output/Alice_FL.flac -map "[FR]" output/Alice_FR.flac -map "[FC]" output/Alice_FC.flac -map "[LFE]" output/Alice_LFE.flac -map "[BL]" output/Alice_BL.flac -map "[BR]" output/Alice_BR.flac')
-# 엠알 제거가 안되는듯
-# 엠알 제거후 flac을 다시 wav로 바꾸는 코드 추가하기
+os.system("spleeter separate -p spleeter:2stems -o output audio.mp3")
 
 ''' ~~~~~~~~~~~~~~'''
 
@@ -35,7 +33,7 @@ sound.export("test.wav", format="wav")
 
 # create a speech recognition object
 r = sr.Recognizer()
-path = './test.wav'
+path = './ouput/audio/vocals.wav'
 
 file = open('script.srt','w')
 
@@ -87,7 +85,7 @@ def updateStorage(i):
     blob.upload_from_filename(source_file_name)
 
 def cuttingWav(): 
-    song = AudioSegment.from_mp3("./test.wav")
+    song = AudioSegment.from_mp3("./output/audio/vocals.wav")
     rttm = open("./file.rttm", 'r')
     i = 0
     line = rttm.readline()
