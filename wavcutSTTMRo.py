@@ -25,11 +25,6 @@ sound = AudioSegment.from_wav("test.wav")
 sound = sound.set_channels(1)
 sound.export("test.wav", format="wav")
 
-os.system("spleeter separate -p spleeter:2stems -o output audio.mp3")
-
-sound2 = AudioSegment.from_wav("./output/audio/vocals.wav")
-sound2 = sound2.set_channels(1)
-sound2.export("./output/audio/vocals.wav", format="wav")
 
 ''' ~~~~~~~~~~~~~~'''
 
@@ -37,7 +32,7 @@ sound2.export("./output/audio/vocals.wav", format="wav")
 
 # create a speech recognition object
 r = sr.Recognizer()
-path = './output/audio/vocals.wav'
+path = './test.wav'
 
 file = open('script.srt','w')
 
@@ -57,7 +52,7 @@ def run_quickstart(i):
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=44100,
         language_code="ko-KR",
-        speech_contexts=[{"phrases":["동만이", "애라"]}]
+#speech_contexts=[{"phrases":["차장아저씨", "코난","패스링"]}]
     )
 
     # Detects speech in the audio file
@@ -91,9 +86,9 @@ def updateStorage(i):
 def cuttingWav(): 
 
     chunks = list()
-    song = AudioSegment.from_mp3("./output/audio/vocals.wav")
+    song = AudioSegment.from_mp3("test.wav")
 
-    with contextlib.closing(wave.open("./output/audio/vocals.wav",'r')) as f:
+    with contextlib.closing(wave.open("test.wav",'r')) as f:
         frames = f.getnframes()
         rate = f.getframerate()
         duration = frames / float(rate)
