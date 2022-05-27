@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # importing libraries
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
@@ -19,13 +20,11 @@ clip = mp.VideoFileClip("descendent.mp4")
 clip.audio.write_audiofile("audio.mp3")
 AudioSegment.from_mp3("audio.mp3").export("test.wav", format="wav", bitrate="44100")
 
-#AudioSegment.from_mp3("test.wav_vocals.mp3").export("test.wav", format="wav", bitrate="44100")
 
 sound = AudioSegment.from_wav("test.wav")
 sound = sound.set_channels(1)
 sound.export("test.wav", format="wav")
 
-os.system("spleeter separate -p spleeter:2stems -o output audio.mp3")
 
 ''' ~~~~~~~~~~~~~~'''
 
@@ -33,7 +32,7 @@ os.system("spleeter separate -p spleeter:2stems -o output audio.mp3")
 
 # create a speech recognition object
 r = sr.Recognizer()
-path = './ouput/audio/vocals.wav'
+path = './test.wav'
 
 file = open('script.srt','w')
 
@@ -53,8 +52,7 @@ def run_quickstart(i):
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=44100,
         language_code="ko-KR",
-#speech_contexts=[{"phrases":["차장아저씨", "코난","패스링"]}]
-    )
+        speech_contexts=[{"phrases":["참다", "크기", "고기", "남기다", "서양", "주요", "지나치다", "가져오다", "냄새", "부드럽다", "여기다", "이", "공연", "남녀", "내놓다", "떼다", "만들어지다", "속도", "심각하다", "준비", "계속되다", "구월", "맑다", "소년", "소식", "유월", "작용", "허리", "골", "공업", "그중", "노인", "벌다", "살리다", "새", "영어", "출신", "결정", "경향", "기록", "나름", "대답하다", "반면", "썰다", "움직임", "이미지", "터지다", "특성", "교장", "벗다", "업무", "입시", "준비하다", "청소년", "돕다", "응", "이기다", "찾아보다", "취하다", "다루다", "달", "사장", "삼월", "그렇지만", "선배", "업체", "키", "구하다", "국회", "그러므로", "포함하다", "걱정", "결혼하다", "만약", "바르다", "세월", "숨", "행사", "깨닫다", "누나", "신", "왕", "점점", "질문", "특별", "판단", "해결하다", "거리", "계속하다", "그치다", "근처", "너무나", "높이다", "부정", "사정", "도대체", "막", "부모님", "수출", "계시다", "그", "자르다", "데리다", "마리", "무척", "비용", "비행기", "옳다", "원래", "처리", "최초", "꼴", "놀이", "뜨겁다", "뿌리", "수입", "초", "그리하여", "낮", "일찍", "직원", "찍다", "가볍다", "내부", "다소", "상대", "오전", "피부", "가게", "가득", "그저", "도", "벽", "장군", "무역", "부담", "약속", "인사", "줄", "쳐다보다", "충분히", "대", "신체", "에너지", "위원", "정리하다", "집안", "배경", "죽이다", "단순하다", "반대", "법칙", "빠지다", "소금", "오염", "자전거", "참여하다", "탓", "푸르다", "그래", "목", "발표", "범죄", "위", "흔들다", "기초", "논리", "드라마", "뽑다", "피우다", "감각", "미리", "부족하다", "인사", "저희", "진행되다", "교통", "기구", "법", "오랜", "젊은이", "후보", "거리", "과제", "근거", "기록하다", "다가오다", "불다", "시각", "이끌다", "종합", "한글", "가을", "개발하다", "내일", "떨다", "매일", "손가락"]}])
 
     # Detects speech in the audio file
     response = client.recognize(config=config, audio=audio)
@@ -85,8 +83,8 @@ def updateStorage(i):
     blob.upload_from_filename(source_file_name)
 
 def cuttingWav(): 
-    song = AudioSegment.from_mp3("./output/audio/vocals.wav")
-    rttm = open("./descendentNOmr.rttm", 'r')
+    song = AudioSegment.from_mp3("./test.wav")
+    rttm = open("./descendent.rttm", 'r')
     i = 0
     global spk 
     spk = list()
@@ -110,7 +108,7 @@ def cuttingWav():
             beginning = f
             path = os.path.join("./audio-chunks", f"chunk{i}.wav")
             beginning.export(path, format='wav', parameters=["-q:a", "10", "-ac", "1"])
-            s_time = n_time
+            s_time = n_time - 400
         rttm.close()
     return i+1
 def get_large_audio_transcription(path):
